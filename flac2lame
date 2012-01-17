@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+## flac2mp3, january 2012, pete gamache, gamache!@#$!@gmail.com
+##
+## Use flac2lame to take properly-tagged FLAC files and turn them into
+## properly tagged mp3s.
+## I wanted to call it flac2mp3 but that is already a Bash script.
+##
+## Requires: flac (and metaflac), lame
+## Usage: flac2mp3 file1.flac ... fileN.flac
+## Outputs file1.mp3 ... file3.mp3 in the current directory
+
+## environment variables
+METAFLAC  = ENV['METAFLAC']  || 'metaflac'
+FLAC      = ENV['FLAC']      || 'flac'
+FLAC_OPTS = ENV['FLAC_OPTS'  || ''          ## -c -d will be appended
+LAME      = ENV['LAME']      || 'lame'
+LAME_OPTS = ENV['LAME_OPTS'] || '-V0'       ## override tags or encoding here
+
+## I monkeypatch String to provide double-quote escaping; pure sugar
+class String; def dqe; self.gsub('"', '\\"') end; end
+
+## key is FLAC tag key, value is LAME cmdline opt
+tag_map = {
+  'ARTIST'      => '--ta',
+  'ALBUM'       => '--tl',
+  'TITLE'       => '--tt',
+  'DATE'        => '--ty',
+  'TRACKNUMBER' => '--tn',
+  'COMMENTS'    => '--tc',
+}
+
+ARGV.each do |flac|
+  mp3 = File.basename(flac, '.flac') + '.mp3'
+
+  metadata = %x{#{METAFLAC} --list "#{flac.dqe}"}
+  tags = tag_map.keys.inject({}) do |hsh,field|
+    if m=metadata.match(/#{field}=(.+?)\s*\n/)
+      hsh.merge(field => m[1])
+    else
+      hsh
+    end
+  end
+
+  lame_tags = tags.keys.inject('') do |tagstr,field|
+    tagstr + %Q{ #{tag_map[field]} "#{tags[field].dqe}" }
+  end
+  cmd = %Q{#{FLAC} -c -d "#{flac.dqe}" | #{LAME} #{lame_tags} #{LAME_OPTS} - "#{mp3.dqe}"}
+  system(cmd)
+end
+
