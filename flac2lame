@@ -44,7 +44,7 @@ ARGV.each do |flac|
   lame_tags = tags.keys.inject('') do |tagstr,field|
     tagstr + %Q{ #{tag_map[field]} "#{tags[field].dqe}" }
   end
-  cmd = %Q{#{FLAC} -c -d "#{flac.dqe}" | #{LAME} #{lame_tags} #{LAME_OPTS} - "#{mp3.dqe}"}
+  cmd = %Q{#{FLAC} #{FLAC_OPTS} -c -d "#{flac.dqe}" | #{LAME} #{lame_tags} #{LAME_OPTS} - "#{mp3.dqe}"}
   system(cmd)
 end
 
