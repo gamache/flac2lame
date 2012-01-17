@@ -12,7 +12,7 @@
 ## environment variables
 METAFLAC  = ENV['METAFLAC']  || 'metaflac'
 FLAC      = ENV['FLAC']      || 'flac'
-FLAC_OPTS = ENV['FLAC_OPTS'  || ''          ## -c -d will be appended
+FLAC_OPTS = ENV['FLAC_OPTS'] || ''          ## -c -d will be appended
 LAME      = ENV['LAME']      || 'lame'
 LAME_OPTS = ENV['LAME_OPTS'] || '-V0'       ## override tags or encoding here
 
