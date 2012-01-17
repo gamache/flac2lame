@@ -2,11 +2,11 @@
 ## flac2lame, january 2012, pete gamache, gamache!@#$!@gmail.com
 ##
 ## Use flac2lame to take properly-tagged FLAC files and turn them into
-## properly tagged mp3s.
+## properly tagged MP3s.
 ## I wanted to call it flac2mp3 but that is already a Bash script.
 ##
 ## Requires: flac (and metaflac), lame
-## Usage: flac2mp3 file1.flac ... fileN.flac
+## Usage: flac2lame file1.flac ... fileN.flac
 ## Outputs file1.mp3 ... fileN.mp3 in the current directory
 
 ## environment variables
