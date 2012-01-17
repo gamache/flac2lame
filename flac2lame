@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-## flac2mp3, january 2012, pete gamache, gamache!@#$!@gmail.com
+## flac2lame, january 2012, pete gamache, gamache!@#$!@gmail.com
 ##
 ## Use flac2lame to take properly-tagged FLAC files and turn them into
 ## properly tagged mp3s.
