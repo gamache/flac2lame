@@ -7,7 +7,7 @@
 ##
 ## Requires: flac (and metaflac), lame
 ## Usage: flac2mp3 file1.flac ... fileN.flac
-## Outputs file1.mp3 ... file3.mp3 in the current directory
+## Outputs file1.mp3 ... fileN.mp3 in the current directory
 
 ## environment variables
 METAFLAC  = ENV['METAFLAC']  || 'metaflac'
