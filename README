@@ -1,7 +1,13 @@
 flac2lame creates properly-tagged MP3s from properly-tagged FLACs.
 
+install: gem install flac2lame
+
 usage:  flac2lame path/to/file1.flac ... path/to/fileN.flac
 outputs file1.mp3 ... fileN.mp3 in current directory
+
+'flac2lame -h' prints usage information.
+
+Released under the MIT license.
 
  ,
 (k)  copyright 2012  pete gamache  gamache!@$@@gmail.com

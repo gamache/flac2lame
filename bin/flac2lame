@@ -6,8 +6,17 @@
 ## I wanted to call it flac2mp3 but that is already a Bash script.
 ##
 ## Requires: flac (and metaflac), lame
-## Usage: flac2lame file1.flac ... fileN.flac
-## Outputs file1.mp3 ... fileN.mp3 in the current directory
+
+VERSION = '0.2'
+
+def usage
+  <<-EOT
+flac2lame v#{VERSION} (https://github.com/gamache/flac2lame)
+Usage: #{$0} path/to/file1.flac ... path/to/fileN.flac
+Outputs file1.mp3 ... fileN.mp3 in the current directory.
+Run '#{$0} -h' to see this message.
+  EOT
+end
 
 ## environment variables
 METAFLAC  = ENV['METAFLAC']  || 'metaflac'
@@ -30,6 +39,11 @@ tag_map = {
 }
 
 ARGV.each do |flac|
+  if (flac == '-h' || flac == '--help')
+    puts usage
+    exit 0
+  end
+
   mp3 = File.basename(flac, '.flac') + '.mp3'
 
   metadata = %x{#{METAFLAC} --list "#{flac.dqe}"}
